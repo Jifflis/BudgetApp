@@ -55,7 +55,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun addAccount(acount:Account){
         accountRepository.insert(account =acount)
     }
-    
+
     private fun addAccountList(account:Account){
         val accounts = accountList.value!!.data!!
         accounts.add(account)
