@@ -40,8 +40,9 @@ public class SliderItemFragment extends Fragment {
   // prepare all background images arrays
   @StringRes
   private static final int[] BG_IMAGE = new int[] {
-      R.drawable.ic_bg_red, R.drawable.ic_bg_blue, R.drawable.ic_bg_green,
-      R.drawable.ic_bg_purple
+          R.drawable.ic_bg_purple,
+          R.drawable.ic_bg_blue, R.drawable.ic_bg_red, R.drawable.ic_bg_green,
+
   };
 
   private int position;
