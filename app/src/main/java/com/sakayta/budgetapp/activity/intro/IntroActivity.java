@@ -9,17 +9,23 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sakayta.budgetapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IntroActivity extends AppCompatActivity {
 
   private ViewPager viewPager;
   private Button button;
   private SliderPagerAdapter adapter;
+
+  private List<Fragment> fragmentList = new ArrayList<>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +45,14 @@ public class IntroActivity extends AppCompatActivity {
     TabLayout tabLayout = findViewById(R.id.tabs);
     button = findViewById(R.id.button);
 
+    setFragments();
+
     // init slider pager adapter
-    adapter = new SliderPagerAdapter(getSupportFragmentManager(),
-        FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    adapter = new SliderPagerAdapter(
+            fragmentList,
+            getSupportFragmentManager(),
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
 
     // set adapter
     viewPager.setAdapter(adapter);
@@ -54,9 +65,15 @@ public class IntroActivity extends AppCompatActivity {
 
     button.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        if (viewPager.getCurrentItem() < adapter.getCount()) {
-          viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+
+        if(getFragment(viewPager.getCurrentItem()) instanceof SignUp ){
+
+        }else{
+          if (viewPager.getCurrentItem() < adapter.getCount()) {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+          }
         }
+
       }
     });
 
@@ -71,10 +88,12 @@ public class IntroActivity extends AppCompatActivity {
       }
 
       @Override public void onPageSelected(int position) {
-        if (position == adapter.getCount() - 1) {
+
+
+        if(getFragment(position) instanceof SignUp){
+          button.setText("Sign-up");
+        }else{
           button.setText(R.string.get_started);
-        } else {
-          button.setText(R.string.next);
         }
       }
 
@@ -82,6 +101,17 @@ public class IntroActivity extends AppCompatActivity {
 
       }
     });
+  }
+
+  private  Fragment getFragment(int position){
+    return fragmentList.get(position);
+  }
+
+  private void setFragments() {
+    SliderItemFragment f1 = new SliderItemFragment();
+    SignUp f2 = new SignUp();
+    fragmentList.add(f1);
+    fragmentList.add(f2);
   }
 
   private void changeStatusBarColor() {
