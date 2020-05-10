@@ -1,4 +1,4 @@
-package com.sakayta.budgetapp.activity.home
+package com.sakayta.budgetapp.activity.main.home
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,15 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 import com.sakayta.budgetapp.R
-import com.sakayta.budgetapp.ViewModelGetter
-import com.sakayta.budgetapp.activity.HomeViewModel
+import com.sakayta.budgetapp.activity.main.HomeViewModel
 import com.sakayta.budgetapp.model.Account
 import com.sakayta.budgetapp.util.Constants
 import com.sakayta.budgetapp.util.Resource
@@ -28,12 +24,11 @@ import java.lang.ClassCastException
 class Home : Fragment(),HomeAdapter.HomeAdapterListener {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var ctx:Context
     private  lateinit var adapter:HomeAdapter;
 
     private  lateinit var mlistener:HomeInteractionListener
 
-    interface HomeInteractionListener:ViewModelGetter{
+    interface HomeInteractionListener{
         fun isLoading(flag:Boolean)
     }
 
@@ -71,7 +66,6 @@ class Home : Fragment(),HomeAdapter.HomeAdapterListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        ctx = context
         if(context is HomeInteractionListener){
             mlistener = context
         }else{
@@ -95,11 +89,12 @@ class Home : Fragment(),HomeAdapter.HomeAdapterListener {
         super.onActivityCreated(savedInstanceState)
 
 
-        viewModel =   mlistener.getParentViewModel()
+        viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+
 
         adapter = HomeAdapter(this)
 
-        recycler.layoutManager=LinearLayoutManager(ctx)
+        recycler.layoutManager=LinearLayoutManager(context)
         recycler.adapter = adapter
 
         viewModel.loadAccounts()

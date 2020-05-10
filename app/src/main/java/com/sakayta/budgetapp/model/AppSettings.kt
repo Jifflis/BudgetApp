@@ -12,11 +12,10 @@ class AppSettings(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id:Int,
-
-    @ColumnInfo(name =  "reresh_date")
-    var refresh_date:String
+    @ColumnInfo(name =  "is_fisrt_install")
+    var is_fisrt_install:String
 ) : Parcelable {
     override fun toString(): String {
-        return "AppSettings(id=$id, refresh_date='$refresh_date')"
+        return "AppSettings(id=$id, refresh_date='$is_fisrt_install')"
     }
 }

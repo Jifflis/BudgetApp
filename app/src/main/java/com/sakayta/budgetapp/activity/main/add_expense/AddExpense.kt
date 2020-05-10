@@ -1,6 +1,5 @@
-package com.sakayta.budgetapp.activity.add_expense
+package com.sakayta.budgetapp.activity.main.add_expense
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,35 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 
 import com.sakayta.budgetapp.R
-import com.sakayta.budgetapp.ViewModelGetter
-import com.sakayta.budgetapp.activity.HomeViewModel
+import com.sakayta.budgetapp.activity.main.HomeViewModel
 import com.sakayta.budgetapp.model.Account
 import com.sakayta.budgetapp.model.Expenses
 import com.sakayta.budgetapp.util.Constants.Companion.ACCOUNT_KEY
 import com.sakayta.budgetapp.util.Date
-import com.sakayta.budgetapp.util.Numb
 import com.sakayta.budgetapp.util.Numb.Companion.formatDecimalWithComma
 import kotlinx.android.synthetic.main.fragment_add_expense.*
-import java.lang.ClassCastException
-import java.text.DecimalFormat
-import java.time.LocalDateTime
 
 class AddExpense : Fragment() {
 
     lateinit var account: Account
     private lateinit var viewModel: HomeViewModel
-    private  lateinit var mlistener: ViewModelGetter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if(context is ViewModelGetter){
-            mlistener = context
-        }else{
-            throw ClassCastException("HomeIntereactionListener must be implemented!")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +40,7 @@ class AddExpense : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =   mlistener.getParentViewModel()
+        viewModel =    ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         setView(account)
 

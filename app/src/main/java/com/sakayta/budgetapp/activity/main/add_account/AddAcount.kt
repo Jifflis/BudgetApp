@@ -1,7 +1,6 @@
-package com.sakayta.budgetapp.activity.add_account
+package com.sakayta.budgetapp.activity.main.add_account
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -9,31 +8,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.sakayta.budgetapp.R
-import com.sakayta.budgetapp.ViewModelGetter
-import com.sakayta.budgetapp.activity.HomeViewModel
+import com.sakayta.budgetapp.activity.main.HomeViewModel
 import com.sakayta.budgetapp.model.Account
 import com.sakayta.budgetapp.util.Constants
 import kotlinx.android.synthetic.main.add_account_fragment.*
 import kotlinx.android.synthetic.main.add_account_fragment.budget
-import java.lang.ClassCastException
 
 class AddAcount : Fragment() {
 
 
     private lateinit var viewModel: HomeViewModel
-    private  lateinit var mlistener:ViewModelGetter
     private var account:Account? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(context is ViewModelGetter){
-            mlistener = context
-        }else{
-            throw ClassCastException("HomeIntereactionListener must be implemented!")
-        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +47,7 @@ class AddAcount : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel =   mlistener.getParentViewModel()
+        viewModel =    ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         setView()
         submit.setOnClickListener{

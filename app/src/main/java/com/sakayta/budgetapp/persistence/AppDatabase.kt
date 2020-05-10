@@ -5,10 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sakayta.budgetapp.model.Account
+import com.sakayta.budgetapp.model.AppSettings
 import com.sakayta.budgetapp.model.Expenses
 
 
-@Database(entities = [Account::class,Expenses::class], version = 1)
+@Database(entities = [
+    Account::class,
+    Expenses::class,
+    AppSettings::class
+], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun getAccountDao(): AccountDao

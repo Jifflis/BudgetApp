@@ -1,14 +1,12 @@
-package com.sakayta.budgetapp.activity.home
+package com.sakayta.budgetapp.activity.main.home
 
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.sakayta.budgetapp.R
 import com.sakayta.budgetapp.model.Account
-import com.sakayta.budgetapp.util.Numb
 import com.sakayta.budgetapp.util.Numb.Companion.formatDecimalWithComma
 import kotlinx.android.synthetic.main.list_account.view.*
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home2"
-        android:name="com.sakayta.budgetapp.activity.home.Home"
+        android:name="com.sakayta.budgetapp.activity.main.home.Home"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
@@ -27,14 +27,14 @@
     </fragment>
     <fragment
         android:id="@+id/addAcount"
-        android:name="com.sakayta.budgetapp.activity.add_account.AddAcount"
+        android:name="com.sakayta.budgetapp.activity.main.add_account.AddAcount"
         android:label="add_account_fragment"
         tools:layout="@layout/add_account_fragment" >
 
     </fragment>
     <fragment
         android:id="@+id/addExpense"
-        android:name="com.sakayta.budgetapp.activity.add_expense.AddExpense"
+        android:name="com.sakayta.budgetapp.activity.main.add_expense.AddExpense"
         android:label="fragment_add_expense"
         tools:layout="@layout/fragment_add_expense" />
 </navigation>

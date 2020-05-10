@@ -27,8 +27,6 @@ class AccountRepository(val accountDao: AccountDao):
     suspend fun getAcountAndExpense():List<AcountWithTransaction>{
         return GlobalScope.async (Dispatchers.IO){
             val data = accountDao.getAcountAndExpense()
-            println("this is the data")
-            println(data)
             return@async accountDao.getAcountAndExpense()
         }.await()
     }

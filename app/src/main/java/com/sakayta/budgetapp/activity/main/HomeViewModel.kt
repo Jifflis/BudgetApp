@@ -1,4 +1,4 @@
-package com.sakayta.budgetapp.activity
+package com.sakayta.budgetapp.activity.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.add_expense.AddExpense">
+    tools:context=".activity.main.add_expense.AddExpense">
 
     <RelativeLayout
         android:id="@+id/header"
