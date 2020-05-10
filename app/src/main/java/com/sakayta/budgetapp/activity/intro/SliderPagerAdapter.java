@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class SliderPagerAdapter extends FragmentPagerAdapter {
+
   public SliderPagerAdapter(@NonNull FragmentManager fm, int behavior) {
     super(fm, behavior);
   }
@@ -17,4 +18,5 @@ public class SliderPagerAdapter extends FragmentPagerAdapter {
   @Override public int getCount() {
     return 4;
   }
+
 }
