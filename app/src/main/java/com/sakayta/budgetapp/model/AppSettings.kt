@@ -11,9 +11,9 @@ import kotlinx.android.parcel.Parcelize
 class AppSettings(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id:Int,
+    var id:Int = 0,
     @ColumnInfo(name =  "is_fisrt_install")
-    var is_fisrt_install:String
+    var is_fisrt_install:Boolean = true
 ) : Parcelable {
     override fun toString(): String {
         return "AppSettings(id=$id, refresh_date='$is_fisrt_install')"

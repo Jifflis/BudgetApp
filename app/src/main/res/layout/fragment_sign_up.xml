@@ -8,7 +8,7 @@
     android:background="@drawable/ic_bg_purple">
 
     <ImageView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -55,6 +55,7 @@
             />
 
         <EditText
+            android:id="@+id/username"
             android:layout_marginTop="3dp"
             android:textColor="@color/amber500"
             android:layout_width="match_parent"
@@ -73,13 +74,12 @@
             android:textColor="@color/white"/>
 
         <EditText
-
+            android:id="@+id/password"
             android:textColor="@color/amber500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:backgroundTint="@color/gray400"/>
-
 
         <TextView
             android:layout_marginLeft="3dp"
@@ -90,6 +90,7 @@
             android:text="Email"
             android:textColor="@color/white"/>
         <EditText
+            android:id="@+id/email"
             android:textColor="@color/amber500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,7 +14,22 @@ class Date {
             println("the date $formatedDate")
             return  formatedDate
         }
+
+
+        fun getMonth():String{
+            return "05"
+        }
+
+        fun  getDay():String{
+            return ""
+        }
+
+        fun getYear():String{
+            return "2020"
+        }
+
     }
+
 
 
 }

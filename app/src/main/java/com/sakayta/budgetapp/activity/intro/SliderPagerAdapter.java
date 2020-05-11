@@ -5,19 +5,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SliderPagerAdapter extends FragmentPagerAdapter {
 
-  List<Fragment> fragments;
+  List<Fragment> fragments =  new ArrayList<>();
 
   public SliderPagerAdapter(
-          List<Fragment> fragments,
           @NonNull FragmentManager fm,
           int behavior
   ) {
     super(fm, behavior);
-    this.fragments = fragments;
   }
 
   @NonNull @Override public Fragment getItem(int position) {
@@ -29,4 +28,10 @@ public class SliderPagerAdapter extends FragmentPagerAdapter {
     return fragments.size();
   }
 
+  public void setFragments(List<Fragment> fragments){
+    this.fragments = fragments;
+  }
+  public Fragment getFragment(int position){
+    return  fragments.get(position);
+  }
 }

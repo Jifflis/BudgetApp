@@ -44,4 +44,13 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
+
+  <ProgressBar
+      android:id="@+id/progress"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      app:layout_constraintBottom_toBottomOf="@+id/pagerIntroSlider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/pagerIntroSlider"
+      app:layout_constraintTop_toTopOf="@+id/pagerIntroSlider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

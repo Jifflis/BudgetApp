@@ -7,17 +7,25 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import com.facebook.stetho.Stetho;
 import com.google.android.material.tabs.TabLayout;
 import com.sakayta.budgetapp.R;
+import com.sakayta.budgetapp.activity.main.HomeViewModel;
+import com.sakayta.budgetapp.util.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -25,11 +33,17 @@ public class IntroActivity extends AppCompatActivity {
   private Button button;
   private SliderPagerAdapter adapter;
 
-  private List<Fragment> fragmentList = new ArrayList<>();
+
+  private IntroViewModel viewModel;
+  private TabLayout tabLayout;
+
+  private ProgressBar progressBar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    // Create an InitializerBuilder
+
 
     // making activity full screen
     if (Build.VERSION.SDK_INT >= 21) {
@@ -42,38 +56,28 @@ public class IntroActivity extends AppCompatActivity {
     getSupportActionBar().hide();
     // bind views
     viewPager = findViewById(R.id.pagerIntroSlider);
-    TabLayout tabLayout = findViewById(R.id.tabs);
+    tabLayout = findViewById(R.id.tabs);
+    progressBar = findViewById(R.id.progress);
+
     button = findViewById(R.id.button);
 
-    setFragments();
+    viewModel = new ViewModelProvider(this).get(IntroViewModel.class);
+    observeFragmentList();
+    viewModel.getFragments();
 
-    // init slider pager adapter
-    adapter = new SliderPagerAdapter(
-            fragmentList,
-            getSupportFragmentManager(),
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-
-
-    // set adapter
-    viewPager.setAdapter(adapter);
-
-    // set dot indicators
-    tabLayout.setupWithViewPager(viewPager);
 
     // make status bar transparent
     changeStatusBarColor();
 
     button.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-
         if(getFragment(viewPager.getCurrentItem()) instanceof SignUp ){
-
+            ((SignUp)getFragment(viewPager.getCurrentItem())).save();
         }else{
           if (viewPager.getCurrentItem() < adapter.getCount()) {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
           }
         }
-
       }
     });
 
@@ -101,18 +105,45 @@ public class IntroActivity extends AppCompatActivity {
 
       }
     });
+
+
+
   }
 
+  private void observeFragmentList() {
+    viewModel.observeFragments().observe(this, new Observer<Resource<List<Fragment>>>() {
+      @Override
+      public void onChanged(Resource<List<Fragment>> result) {
+
+          if(result.getData()==null){
+            progressBar.setVisibility(View.VISIBLE);
+          }else{
+            progressBar.setVisibility(View.GONE);
+            List<Fragment> fragments = result.getData();
+            setUpDetails(fragments);
+          }
+
+      }
+    });
+  }
+
+
+  private  void setUpDetails(List<Fragment> fragments){
+    // init slider pager adapter
+    adapter = new SliderPagerAdapter(
+            getSupportFragmentManager(),
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    adapter.setFragments(fragments);
+    // set adapter
+    viewPager.setAdapter(adapter);
+
+    // set dot indicators
+    tabLayout.setupWithViewPager(viewPager);
+  }
   private  Fragment getFragment(int position){
-    return fragmentList.get(position);
+    return adapter.getFragment(position);
   }
 
-  private void setFragments() {
-    SliderItemFragment f1 = new SliderItemFragment();
-    SignUp f2 = new SignUp();
-    fragmentList.add(f1);
-    fragmentList.add(f2);
-  }
 
   private void changeStatusBarColor() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

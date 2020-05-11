@@ -7,7 +7,6 @@ import com.sakayta.budgetapp.util.JobManager
 import kotlinx.coroutines.*
 
 class AccountRepository(val accountDao: AccountDao):
-
     JobManager("NoteRepository") {
 
     companion object{
@@ -26,7 +25,6 @@ class AccountRepository(val accountDao: AccountDao):
 
     suspend fun getAcountAndExpense():List<AcountWithTransaction>{
         return GlobalScope.async (Dispatchers.IO){
-            val data = accountDao.getAcountAndExpense()
             return@async accountDao.getAcountAndExpense()
         }.await()
     }
